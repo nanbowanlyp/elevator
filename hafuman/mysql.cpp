@@ -66,7 +66,7 @@ void Insert(int id,int start, int now, int end, char direction[20], char state[2
 	}
 }
 
-void Select() {
+MYSQL_RES* Select() {
 	const char* sql_query = "select * from elevator ";
 	if (mysql_query(&m, sql_query))
 	{
@@ -78,7 +78,7 @@ void Select() {
 	}
 	//获取查询结果集
 	res = mysql_store_result(&m);
-
+	return res;
 	if (res)
 	{
 		printf("获取到数据\n");
@@ -88,11 +88,12 @@ void Select() {
 		printf("未获取到数据：%s \n", mysql_error(&m));
 	}
 	//打印获取到的数据
-	printf("id\tstart\tnow\tend\tdirection\tstate\n");
-	while (row = mysql_fetch_row(res))
-	{
-		printf("%s\t%s\t%s\t%s\t%s\t\t%s\n", row[0], row[1], row[2],row[3],row[4],row[5]);
-	}
+	//printf("id\tstart\tnow\tend\tdirection\tstate\n");
+	//while (row = mysql_fetch_row(res))
+	//{
+	//	
+	//	printf("%s\t%s\t%s\t%s\t%s\t\t%s\n", row[0], row[1], row[2],row[3],row[4],row[5]);
+	//}
 }
 
 void Delete(int delete_id) {
