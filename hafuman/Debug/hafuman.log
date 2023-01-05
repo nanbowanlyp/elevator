@@ -4,4 +4,5 @@ C:\Users\nanbowan\Desktop\elevator_sql\elevator-connect_mysql\elevator-connect_m
 C:\Users\nanbowan\Desktop\elevator_sql\elevator-connect_mysql\elevator-connect_mysql\hafuman\main.cpp(191,20): warning C4018: “<”: 有符号/无符号不匹配
 C:\Users\nanbowan\Desktop\elevator_sql\elevator-connect_mysql\elevator-connect_mysql\hafuman\main.cpp(198,12): warning C4018: “<”: 有符号/无符号不匹配
 C:\Users\nanbowan\Desktop\elevator_sql\elevator-connect_mysql\elevator-connect_mysql\hafuman\main.cpp(183,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  mysql.cpp
   hafuman.vcxproj -> C:\Users\nanbowan\Desktop\elevator_sql\elevator-connect_mysql\elevator-connect_mysql\Debug\elevator.exe
