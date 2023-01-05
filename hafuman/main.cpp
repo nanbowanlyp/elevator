@@ -10,6 +10,8 @@
 #include"main.h"
 #include "Mysql.h"
 
+MYSQL_RES* res1; //查询结果集
+MYSQL_ROW row1;  //二维数组，存放数据
 using namespace DuiLib;
 #define WM_REDRAW WM_USER+100
 #define WM_CHANGEUBTNCOLOR WM_USER+101
@@ -39,8 +41,40 @@ HWND hWnd;
 
 bool flag = true;
 int Start;
-int Id = 3;
+int Id = 1;
 int End;
+
+class CDuiFrameWnd1 : public WindowImplBase
+{
+public:
+	virtual LPCTSTR    GetWindowClassName() const { return _T("DUIMainFrame"); }
+	virtual CDuiString GetSkinFile() { return _T("duilib1.xml"); }
+	virtual CDuiString GetSkinFolder() { return _T(""); }
+
+	virtual void  InitWindow()
+	{
+		Connect();
+		res1 = Select();
+		CDuiString str;
+		CListUI* pList = static_cast<CListUI*>(m_PaintManager.FindControl(_T("ListDemo1")));
+		int i = 0;
+		while (row1 = mysql_fetch_row(res1))
+		{	// 添加List列表内容，必须先Add(pListElement)，再SetText
+			CListTextElementUI* pListElement = new CListTextElementUI;
+			pListElement->SetTag(i);
+			pList->Add(pListElement);
+
+			//str.Format(_T("%d"), i);
+			pListElement->SetText(0, _T(row1[0]));
+			pListElement->SetText(1, _T(row1[1]));
+			pListElement->SetText(2, _T(row1[2]));
+			pListElement->SetText(3, _T(row1[3]));
+			pListElement->SetText(4, _T(row1[4]));
+			pListElement->SetText(5, _T(row1[5]));
+		}
+
+	}
+};
 
 class CDuiFrameWnd :public WindowImplBase
 {
@@ -116,12 +150,22 @@ public:
 		if (msg.sType == _T("click"))
 		{
 			string name = (string)msg.pSender->GetName().GetData();
+
 			if (msg.pSender->GetName() == _T("delete"))
 			{
 				Connect();
-				Delete(Id);
 				Id--;
+				Delete(Id);
 				::MessageBox(NULL, _T("已删除最后一次运行数据"), _T("删表"), NULL);
+			}
+
+			if (msg.pSender->GetName() == _T("select"))
+			{
+				Connect();
+				CDuiFrameWnd1 duiFrame1;
+				duiFrame1.Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
+				duiFrame1.CenterWindow();
+				duiFrame1.ShowModal();
 			}
 
 			if (msg.pSender->GetName() == _T("go"))
@@ -659,6 +703,7 @@ void init()
 }
 
 
+
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
 
@@ -672,3 +717,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
 	return 0;
 }
+
+
+
+
+
+
+
