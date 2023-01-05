@@ -95,9 +95,7 @@ void Select() {
 	}
 }
 
-void Delete() {
-	int delete_id;
-	cin >> delete_id;
+void Delete(int delete_id) {
 	const char * sql_delete = "delete from elevator where id = ";
 	char sql_delete1[200];
 	sprintf_s(sql_delete1, "%s%d", sql_delete, delete_id);

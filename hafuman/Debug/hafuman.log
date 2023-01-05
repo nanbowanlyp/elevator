@@ -1,7 +1,7 @@
 ﻿  main.cpp
 C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\include\UIManager.h(45,2): warning C4091: “typedef ”: 没有声明变量时忽略“DuiLib::EVENTTYPE_UI”的左侧
 C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\main.h(247,30): warning C4101: “buf”: 未引用的局部变量
-C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\main.cpp(121,20): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\main.cpp(128,12): warning C4018: “<”: 有符号/无符号不匹配
-C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\main.cpp(113,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\main.cpp(149,20): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\main.cpp(156,12): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\hafuman\main.cpp(141,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   hafuman.vcxproj -> C:\Users\pc\Desktop\课程相关\综合工程设计\elevator1\elevator\Debug\elevator.exe

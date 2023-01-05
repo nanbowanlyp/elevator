@@ -112,10 +112,17 @@ public:
 	}
 
 	virtual void Notify(TNotifyUI& msg)
-	{
+	{	
 		if (msg.sType == _T("click"))
 		{
 			string name = (string)msg.pSender->GetName().GetData();
+			if (msg.pSender->GetName() == _T("delete"))
+			{
+				Connect();
+				Delete(Id);
+				Id--;
+				::MessageBox(NULL, _T("已删除最后一次运行数据"), _T("删表"), NULL);
+			}
 
 			if (msg.pSender->GetName() == _T("go"))
 			{
