@@ -36,6 +36,12 @@ std::mutex mtx;
 //bool change = false;
 //bool isTarget = false;  //当前是否有目标楼层
 HWND hWnd;
+
+bool flag = true;
+int Start;
+int Id = 3;
+int End;
+
 class CDuiFrameWnd :public WindowImplBase
 {
 public:
@@ -69,8 +75,22 @@ public:
 
 		}
 		str.Format(_T("%d"), elevator->getFloor());
-		//Connect();
-		//Insert(10,1,1,1,"上升","正常");
+
+		Connect();
+		int Now = elevator->getFloor();
+		if (flag ==true) {//获取刚开始运行的楼层值start，获取后flag=false，之后运行不再赋值给start，使得start保持第一次获取的值
+			Start = elevator->getFloor();
+			flag = false;
+		}
+		if (elevator->isUp()) {
+			Insert(Id, Start, Now, End, "上升", "正常");
+		}
+		else if (elevator->isDown()) {
+			Insert(Id, Start, Now, End, "下降", "正常");
+		}
+
+
+
 		CListContainerElementUI* one = dynamic_cast <CListContainerElementUI*>(m_PaintManager.FindControl(str));
 		one->SetAttribute(_T("bkcolor"), _T("#FFFF0033"));
 		CLabelUI* now = dynamic_cast <CLabelUI*>(m_PaintManager.FindControl("now_floor"));
@@ -99,6 +119,7 @@ public:
 
 			if (msg.pSender->GetName() == _T("go"))
 			{
+			
 				//free(elevator);
 				//重置链表
 				ClearRequestUp();
@@ -217,7 +238,6 @@ public:
 							tarbtn->SetAttribute(_T("enabled"), _T("false"));
 							btnitem->Add(tarbtn);
 						}
-
 						screenUpdete();
 						hWnd = GetHWND();
 
@@ -235,6 +255,7 @@ public:
 				CButtonUI* btn = static_cast<CButtonUI*>(m_PaintManager.FindControl(str));
 				btn->SetAttribute(_T("bkcolor"), _T("#FFFF0033"));
 				AddRequestDownFloor(n);
+				
 
 			}
 			else if (!name.substr(0, 4).compare(_T("ubtn")))                      //上楼按钮响应事件
@@ -403,8 +424,10 @@ void mainprocess()    //监视楼层变动，显示画面更新
 	::Sleep(2000);
 	CDuiString str;
 
+
 	while (1)
 	{
+
 		bool isArrive = false;
 		if (elevator->getStatus())                  //电梯是否在运行，若在运行再看运行方向
 		{
@@ -413,6 +436,7 @@ void mainprocess()    //监视楼层变动，显示画面更新
 			{
 				elevator->Upstairs();
 				::PostMessage(hWnd, WM_REDRAW, 0L, 0);
+
 
 				if (request_down_head != NULL)
 				{
@@ -425,6 +449,8 @@ void mainprocess()    //监视楼层变动，显示画面更新
 						isArrive = true;
 						elevator->setDown();
 
+						flag = true;
+						Id++;
 					}
 				}
 				else if (FindRequestUp(elevator->getFloor()))
@@ -433,12 +459,18 @@ void mainprocess()    //监视楼层变动，显示画面更新
 					::MessageBox(NULL, _T("到达请求楼层，开门！"), _T("注意安全"), NULL);
 					isArrive = true;
 
+					flag = true;
+					Id++;
+
 				}
 				if (FindTarget(elevator->getFloor()))
 				{
 					::PostMessage(hWnd, WM_CHANGENBTNCOLOR, 0L, 0);
 					::MessageBox(NULL, _T("到达了目标楼层，开门！"), _T("注意安全"), NULL);
 					isArrive = true;
+
+					flag = true;
+					Id++;
 				}
 
 
@@ -457,6 +489,9 @@ void mainprocess()    //监视楼层变动，显示画面更新
 						FreeUpRequest(request_up_head);
 						isArrive = true;
 						elevator->setUp();
+
+						flag = true;
+						Id++;
 					}
 				}
 				else if (FindRequestDown(elevator->getFloor()))
@@ -464,6 +499,9 @@ void mainprocess()    //监视楼层变动，显示画面更新
 					::PostMessage(hWnd, WM_CHANGEDBTNCOLOR, 0L, 0);
 					::MessageBox(NULL, _T("到达请求楼层，开门！"), _T("注意安全"), NULL);
 					isArrive = true;
+
+					flag = true;
+					Id++;
 				}
 				if (FindTarget(elevator->getFloor()))
 				{
@@ -471,6 +509,9 @@ void mainprocess()    //监视楼层变动，显示画面更新
 					::PostMessage(hWnd, WM_CHANGENBTNCOLOR, 0L, 0);
 					::MessageBox(NULL, _T("到达了目标楼层，开门！"), _T("注意安全"), NULL);
 					isArrive = true;
+
+					flag = true;
+					Id++;
 				}
 
 			}
@@ -528,6 +569,8 @@ void mainprocess()    //监视楼层变动，显示画面更新
 					elevator->setDown();
 					::Sleep(5000);
 					::MessageBox(NULL, _T("电梯关门！"), _T("注意安全"), NULL);
+
+					flag = true;
 				}
 				else
 				{
@@ -555,6 +598,8 @@ void mainprocess()    //监视楼层变动，显示画面更新
 					elevator->setUp();
 					::Sleep(5000);
 					::MessageBox(NULL, _T("电梯关门！"), _T("注意安全"), NULL);
+
+					flag = true;
 				}
 				else
 				{
@@ -580,6 +625,8 @@ void mainprocess()    //监视楼层变动，显示画面更新
 					::PostMessage(hWnd, WM_TARBTNOPEN, 0L, 0);
 					//elevator->setUp();
 					::Sleep(20000);
+
+					flag = true;
 				}
 				else
 				{
