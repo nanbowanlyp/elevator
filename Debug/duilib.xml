@@ -23,6 +23,7 @@
                 <Button name="go" text="开始模拟" float="true" pos="23,41,0,0" width="50" height="25" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\button_nor.bmp" hotimage="Sysbtn/button_down.bmp" />
                 <Button name="select" text="查表" float="true" pos="157,43,0,0" width="50" height="25" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\button_nor.bmp" hotimage="Sysbtn/button_down.bmp" />
                 <Button name="delete" text="删表" float="true" pos="229,43,0,0" width="50" height="25" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\button_nor.bmp" hotimage="Sysbtn/button_down.bmp" />	
+   				<Button name="serial_port" text="串口助手" float="true" pos="94,42,0,0" width="50" height="25" textcolor="#FF000000" disabledtextcolor="#FFA7A6AA" align="center" normalimage="SysBtn\button_nor.bmp" hotimage="Sysbtn/button_down.bmp" />
 			</VerticalLayout>
             <HorizontalLayout>
                 <List name="floor" bkcolor="#FFFFFFCC"  float="true"  pos="5,0,0,0" inset="0,0,0,0" height="400" width="160" itemshowhtml="true" vscrollbar="true" hscrollbar="true"  itemalign="center" itembkcolor="#FFE2DDDF" itemaltbk="true"menu="true" itemhotbkcolor="#FFFFCC99">

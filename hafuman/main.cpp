@@ -9,7 +9,9 @@
 #include <future>         // std::promise, std::future
 #include"main.h"
 #include "Mysql.h"
-
+#include "stdafx.h"
+#include <Windows.h>
+#include <ShellAPI.h>
 MYSQL_RES* res1; //查询结果集
 MYSQL_ROW row1;  //二维数组，存放数据
 using namespace DuiLib;
@@ -43,6 +45,8 @@ bool flag = true;
 int Start;
 int Id = 1;
 int End;
+
+
 
 class CDuiFrameWnd1 : public WindowImplBase
 {
@@ -157,6 +161,7 @@ public:
 				Id--;
 				Delete(Id);
 				::MessageBox(NULL, _T("已删除最后一次运行数据"), _T("删表"), NULL);
+
 			}
 
 			if (msg.pSender->GetName() == _T("select"))
@@ -166,6 +171,16 @@ public:
 				duiFrame1.Create(NULL, _T("DUIWnd"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
 				duiFrame1.CenterWindow();
 				duiFrame1.ShowModal();
+			}
+
+			if (msg.pSender->GetName() == _T("serial_port"))
+			{
+				SHELLEXECUTEINFO shell = { sizeof(shell) };
+				shell.fMask = SEE_MASK_FLAG_DDEWAIT;
+				shell.lpVerb = "open";
+				shell.lpFile = "C:\\Users\\nanbowan\\Desktop\\serial_port\\SerialCommunicationTest\\SerialCommunicationTest\\Debug\\SerialCommunicationTest.exe";
+				shell.nShow = SW_SHOWNORMAL;
+				BOOL ret = ShellExecuteEx(&shell);
 			}
 
 			if (msg.pSender->GetName() == _T("go"))
